@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Habib & Adiba</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="no-scroll">
+
+    <div class="mobile-frame">
+        
+        <section class="cover" id="cover">
+            <div class="cover-bg" style="background-image: url('assets/img/depan.jpeg');"></div>
+            <div class="dark-overlay"></div>
+            
+            <div class="cover-content">
+                <p class="pre-title">THE WEDDING OF</p>
+                <h1 class="couple-names">Habib & Adiba</h1>
+                <div class="guest-box">
+                    <p>Dear,</p>
+                    <h2 class="guest-name" id="guestName">Nama Tamu</h2>
+                </div>
+                <button class="btn-buka" onclick="bukaUndangan()">Buka Undangan</button>
+            </div>
+        </section>
+
+        <main class="main-content" id="mainContent">
+            <section class="section animate-up">
+                <div class="ornament">❀</div>
+                <p class="quote">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."</p>
+                <p class="sura">(Ar-Rum: 21)</p>
+            </section>
+
+            <section class="section animate-up">
+                <h2 class="playfair">Habib</h2>
+                <p>Putra dari Bpk. Nama Ayah & Ibu Nama Ibu</p>
+                <div class="ampersand">&</div>
+                <h2 class="playfair">Adiba</h2>
+                <p>Putri dari Bpk. Nama Ayah & Ibu Nama Ibu</p>
+            </section>
+        </main>
+
+    </div>
+
+    <script>
+        function bukaUndangan() {
+            // Membuka kunci scroll pada body
+            document.body.classList.remove('no-scroll');
+            
+            // Menampilkan konten utama
+            const mainContent = document.getElementById('mainContent');
+            mainContent.classList.add('active');
+            
+            // Scroll otomatis ke konten setelah tombol diklik
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+:root {
+    --navy-dark: #1e2a44;
+    --white: #ffffff;
+    --pink-accent: #f48fb1;
+    --content-text: #444444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--content-text);
+}
+
+/* KUNCI SCROLL: Sangat penting agar halaman awal tidak bisa digeser */
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.mobile-frame {
+    width: 100%;
+    max-width: 450px;
+    min-height: 100vh;
+    background-color: var(--white);
+    position: relative;
+    box-shadow: 0 0 50px rgba(0,0,0,0.1);
+}
+
+/* COVER - HALAMAN SATU PENUH */
+.cover {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.cover-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+
+.dark-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Gradient gelap di bawah agar teks putih terbaca jelas */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 40%, rgba(30,42,68,0.9) 100%);
+    z-index: -1;
+}
+
+.cover-content {
+    padding: 20px;
+    margin-top: 30vh; /* Mengatur posisi teks agar di area bawah foto */
+    z-index: 1;
+}
+
+.pre-title {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.couple-names {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 25px;
+}
+
+.guest-box {
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.guest-name {
+    font-size: 1.8rem;
+    margin-top: 5px;
+    font-weight: 700;
+}
+
+.btn-buka {
+    background: var(--navy-dark);
+    color: white;
+    border: 1px solid white;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-buka:hover {
+    background: white;
+    color: var(--navy-dark);
+}
+
+/* ISI KONTEN (ISI UNDANGAN) */
+.main-content {
+    display: none; /* Awalnya tersembunyi sepenuhnya */
+    padding: 60px 25px;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.main-content.active {
+    display: block; /* Muncul hanya setelah tombol diklik */
+    opacity: 1;
+}
+
+.section {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.playfair {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--navy-dark);
+}
+
+.ampersand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin: 15px 0;
+    color: var(--pink-accent);
+}
+
+.quote { font-style: italic; font-size: 0.95rem; line-height: 1.6; }
+.sura { font-weight: 700; margin-top: 10px; }
+
+/* ANIMASI SCRIPT */
+.animate-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s ease-out;
+}
+
+.animate-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
