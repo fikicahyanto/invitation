@@ -2,154 +2,822 @@
     --navy-dark: #1e2a44;
     --white: #ffffff;
     --pink-accent: #f48fb1;
-    --content-text: #444444;
+    --bg-light: #f0f2f5;
+    --text-muted: #666666;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: #f0f2f5;
+    background-color: var(--bg-light);
     display: flex;
     justify-content: center;
     font-family: 'Montserrat', sans-serif;
-    color: var(--content-text);
+    color: #444;
+    overflow-x: hidden; /* Mencegah scroll horizontal */
 }
 
-/* KUNCI SCROLL: Sangat penting agar halaman awal tidak bisa digeser */
 body.no-scroll {
     overflow: hidden;
     height: 100vh;
 }
 
+/* CONTAINER UTAMA (PORTRAIT) */
 .mobile-frame {
     width: 100%;
     max-width: 450px;
     min-height: 100vh;
-    background-color: var(--white);
+    background-color: transparent; /* Agar cover-bg terlihat */
     position: relative;
     box-shadow: 0 0 50px rgba(0,0,0,0.1);
 }
 
-/* COVER - HALAMAN SATU PENUH */
+/* COVER SECTION */
 .cover {
     height: 100vh;
     width: 100%;
-    position: relative;
+    max-width: 450px; /* Samakan dengan mobile-frame */
+    position: fixed; /* Menempel di layar */
+    top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
+    color: var(--white);
+    z-index: 100; /* Pastikan di depan isi undangan */
+    
+    /* Transition untuk efek naik */
+    transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1); /* Efek percepatan yang halus */
+    will-change: transform; /* Optimasi performa animasi */
+}
+
+/* Class untuk memicu animasi naik */
+.cover.move-up {
+    transform: translateY(-100%); /* Geser ke atas 100% dari tingginya */
 }
 
 .cover-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
+    /* GANTI 'image_0.png' dengan file gambar Anda atau link base64 */
+    background-image: url('assets/img/depan.jpeg'); 
     background-size: cover;
-    background-position: center;
+    background-position: center top;
+    z-index: -2;
+}
+
+.cover-bg-slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* GANTI 'image_0.png' dengan file gambar Anda atau link base64 */
+    background-image: url('assets/img/depan.jpeg'); 
+    background-size: cover;
+    background-position: center top;
     z-index: -2;
 }
 
 .dark-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    /* Gradient gelap di bawah agar teks putih terbaca jelas */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 40%, rgba(30,42,68,0.9) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(30,42,68,0.9) 100%);
     z-index: -1;
 }
 
 .cover-content {
-    padding: 20px;
-    margin-top: 30vh; /* Mengatur posisi teks agar di area bawah foto */
     z-index: 1;
+    padding: 20px;
+    margin-top: 35vh; /* Menyesuaikan posisi teks agar area bawah foto */
 }
 
-.pre-title {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-weight: 300;
-}
-
-.couple-names {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 25px;
-}
-
-.guest-box {
-    margin-bottom: 25px;
-    font-weight: 300;
-}
-
-.guest-name {
-    font-size: 1.8rem;
-    margin-top: 5px;
-    font-weight: 700;
-}
+.pre-title { letter-spacing: 4px; font-size: 0.75rem; font-weight: 300; text-transform: uppercase; }
+.couple-names { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 15px 0; line-height: 1.2; }
+.guest-name { font-size: 1.8rem; font-weight: 700; margin-top: 5px; }
 
 .btn-buka {
     background: var(--navy-dark);
-    color: white;
-    border: 1px solid white;
+    color: var(--white);
+    border: 1.5px solid var(--white);
     padding: 12px 35px;
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
+    margin-top: 25px;
     transition: 0.3s;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
-.btn-buka:hover {
-    background: white;
-    color: var(--navy-dark);
-}
+.btn-buka:hover { background: var(--white); color: var(--navy-dark); }
 
-/* ISI KONTEN (ISI UNDANGAN) */
+/* MAIN CONTENT (ISI UNDANGAN) */
 .main-content {
-    display: none; /* Awalnya tersembunyi sepenuhnya */
-    padding: 60px 25px;
-    opacity: 0;
-    transition: opacity 1s ease;
+    display: none; /* Sembunyikan sepenuhnya di awal */
+    background-color: var(--white);
 }
 
 .main-content.active {
-    display: block; /* Muncul hanya setelah tombol diklik */
+    display: block; /* Muncul setelah tombol diklik */
+}
+
+.section { text-align: center; margin-bottom: 80px; }
+.salam { font-weight: 600; color: var(--navy-dark); margin-bottom: 10px; }
+.quote { font-style: italic; font-size: 0.9rem; line-height: 1.8; color: var(--text-muted); padding: 0 10px;}
+
+.story-card {
+    background: var(--pink-soft);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    border-left: 4px solid var(--pink-accent);
+}
+.story-card h5 { color: var(--navy-dark); margin-bottom: 5px; }
+.story-card p { font-size: 0.85rem; line-height: 1.5; }
+
+/* EVENT CARD */
+.event-card {
+    background: #fffcfd;
+    border: 1px solid #fce4ec;
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+.event-card h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--pink-accent); margin-bottom: 10px; }
+.event-info p { font-size: 0.9rem; color: #555; margin-bottom: 5px; }
+
+.btn-action {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--navy-dark);
+    color: var(--white);
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Ornament Bunga */
+.ornament { font-size: 1.5rem; color: var(--pink-accent); margin-bottom: 10px; }
+
+/* ANIMASI MUNCUL SAAT SCROLL */
+.animate-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 1s ease-out;
+}
+.animate-up.show {
     opacity: 1;
+    transform: translateY(0);
 }
 
-.section {
+/* MOBILE RESPONSIVE */
+@media (max-width: 450px) {
+    .mobile-frame { box-shadow: none; }
+    .cover { max-width: 100%; } /* Cover full lebar di HP */
+}
+
+.section-full {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    margin-bottom: 80px;
+    color: var(--white);
+    margin-bottom: 0 !important; /* Paksa margin jadi 0 */
 }
 
+.full-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('assets/img/sakura.jpg'); /* Menggunakan gambar yang sama */
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+
+.full-content {
+    z-index: 1;
+    padding: 20px;
+    width: 100%;
+}
+
+.full-content .quote {
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 20px 0;
+    color: var(--white);
+}
+
+.full-content .sura {
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--pink-accent);
+}
+
+/* Indikator Scroll Sederhana */
+.scroll-indicator {
+    margin-top: 50px;
+    font-size: 0.7rem;
+    opacity: 0.8;
+    animation: bounce 2s infinite;
+}
+
+.arrow {
+    width: 1px;
+    height: 40px;
+    background: var(--white);
+    margin: 10px auto;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+
+/* --- OVAL CARD COVER --- */
+.oval-card-wrapper {
+    position: absolute;
+    top: 50%; /* Tengah secara vertikal */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Menyesuaikan agar benar-benar tengah */
+    z-index: 5;
+    width: 90%;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+}
+
+.oval-card {
+    /* Menggunakan background transparan dengan sedikit warna putih */
+    background: rgba(255, 255, 255, 0.15); 
+    
+    /* EFEK GLASSMORPHISM: Memberikan blur pada apa yang ada di belakangnya */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Dukungan untuk Safari */
+    
+    /* Garis tepi tipis agar bentuk oval tetap tegas */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 200px 200px 0 0;
+    
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bagian Foto di Card */
+.card-photo {
+    flex: 1; /* Mengambil sisa ruang vertical */
+    overflow: hidden;
+    position: relative;
+}
+
+.card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Foto tidak distorsi */
+    object-position: center top; /* Fokus pada wajah */
+}
+
+/* Bagian Teks di Card */
+.card-details {
+    padding: 30px 20px 40px 20px;
+    text-align: center;
+    background: transparent; 
+    color: var(--white);
+}
+
+.card-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(30, 42, 68, 0.5));
+}
+
+.card-details .pre-wedding {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--pink-accent);
+    font-weight: 600;
+}
+
+.card-details h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin: 10px 0;
+    line-height: 1.2;
+}
+
+.card-details .date {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+/* Penyesuaian Quote Takdir agar tidak bertabrakan */
+.quote-under {
+    position: absolute;
+    bottom: 50px; /* Letakkan di bagian bawah layar */
+    width: 100%;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* Animasi Muncul Card (Scale In) */
+.animate-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: 1s ease-out;
+}
+
+.main-content.active .animate-scale {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- ANIMASI FLOATING (Melayang Halus) --- */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating-anim {
+    animation: floating 4s ease-in-out infinite;
+}
+
+/* --- EFEK MUNCUL BERGANTIAN (Fade In Up) --- */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Muncul saat main-content aktif */
+.main-content.active .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay masing-masing elemen agar muncul satu per satu */
+.delay-1 { transition-delay: 0.3s; }
+.delay-2 { transition-delay: 0.5s; }
+.delay-3 { transition-delay: 0.7s; }
+.delay-4 { transition-delay: 1.2s; }
+
+/* --- EFEK PARALLAX ZOOM (Background bergerak pelan) --- */
+@keyframes slowZoom {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.parallax {
+    animation: slowZoom 20s linear infinite;
+}
+
+/* --- EFEK GLOW PADA TOMBOL --- */
+.btn-save {
+    background: var(--navy-dark);
+    color: var(--white);
+    padding: 5px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(244, 143, 177, 0.4);
+}
+
+.btn-save::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255,255,255,0.4);
+    transform: rotate(30deg);
+    transition: none;
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -60%; }
+    20% { left: 120%; }
+    100% { left: 120%; }
+}
+
+/* Oval Card Border Glow (Opsional) */
+.oval-card {
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(5px); /* Sedikit efek kaca pada bagian putih */
+}
+
+
+/* --- AYAT SECTION STYLING --- */
+.section-ayat {
+    margin-top: 0 !important;
+    margin-bottom: 0;
+    width: 100%;
+    /* Gunakan background Soft Pink Watercolor */
+    background-color: var(--pink-accent); 
+    /* background-image: url('assets/img/langit.jpg'); */
+    padding: 60px 20px; /* Padding diatur di dalam agar konten tidak mepet atas/bawah */
+    border-bottom: 1px solid #fce4ec;
+}
+
+.ayat-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ayat-image {
+    width: 150px; /* Sesuaikan ukuran gambar */
+    height: 150px;
+    border-radius: 50%; /* Membuat gambar lingkaran */
+    overflow: hidden;
+    margin: 0 auto 20px auto; /* Centered, dengan jarak ke bawah */
+    border: 3px solid var(--pink-main); /* Bingkai warna tema */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.ayat-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Foto tidak distorsi */
+    object-position: center;
+}
+
+.ayat-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    line-height: 2; /* Jarak antar baris agar nyaman dibaca */
+    color: var(--white);
+    font-style: italic;
+    margin: 15px 0;
+}
+
+.ayat-sourcer {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--white); /* Menggunakan warna Pink tema Anda */
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+/* Ornamen Bunga Kecil */
+.ornament-top, .ornament-bottom {
+    font-size: 1.2rem;
+    color: var(--white);
+    opacity: 0.6;
+}
+
+.ornament-top {
+    margin-bottom: 5px;
+}
+
+.ornament-bottom {
+    margin-top: 5px;
+}
+
+/* Tambahkan garis halus di atas dan bawah jika ingin lebih formal */
+.ayat-container::before, .ayat-container::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background-color: var(--pink-accent);
+    margin: 0 auto;
+    opacity: 0.3;
+}
+
+/* --- ANIMASI BUNGA (Pulse) --- */
+@keyframes softPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; color: var(--pink-main); }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+.pulse-anim {
+    display: inline-block;
+    animation: softPulse 3s ease-in-out infinite;
+}
+
+/* --- ANIMASI GAMBAR (Floating) --- */
+@keyframes floatImg {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.floating-img {
+    animation: floatImg 5s ease-in-out infinite;
+    box-shadow: 0 10px 20px rgba(244, 143, 177, 0.2);
+}
+
+/* --- ANIMASI TEKS (Smooth Reveal) --- */
+.fade-in-text {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(10px);
+    transition: all 1.5s ease-out;
+}
+
+/* Muncul saat scroll sampai ke section ini */
+.section-ayat.show .fade-in-text {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
+.delay-text {
+    transition-delay: 0.8s;
+}
+
+/* --- BACKGROUND WATERCOLOR EFFECT --- */
+.section-ayat {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f48fb1, 0%, #f48fb1 100%);
+}
+
+/* Tambahan hiasan transparan di latar belakang */
+.section-ayat::before {
+    content: ""; /* Kosongkan konten karena kita menggunakan image */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px; /* Sesuaikan ukuran gambar hiasan */
+    height: 150px;
+    /* GANTI URL DI BAWAH DENGAN GAMBAR BUNGA/ORNAMEN ANDA */
+    background-image: url('assets/img/bunga.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: 0.3; 
+    transform: rotate(15deg) translate(-10px, 10px);
+    z-index: 0;
+    pointer-events: none; /* Agar tidak menghalangi klik pada teks */
+}
+
+/* Tambahkan juga di pojok kiri bawah agar seimbang (Opsional) */
+.section-ayat::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    background-image: url('assets/img/bunga.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    opacity: 0.3;
+    transform: rotate(15deg) translate(-10px, 10px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.section-mempelai {
+    margin-top: 0 !important;
+    margin-bottom: 0;
+    width: 100%;
+    /* Gunakan background Soft Pink Watercolor */
+    background-color: var(--pink-accent); 
+    /* background-image: url('assets/img/langit.jpg'); */
+    padding: 60px 20px; /* Padding diatur di dalam agar konten tidak mepet atas/bawah */
+    border-bottom: 1px solid #fce4ec;
+}
+
+.mempelai-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('assets/img/sakura.jpg'); /* Menggunakan gambar yang sama */
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+
+/* --- MEMPELAI SECTION STYLING --- */
+.mempelai-item {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Foto Mempelai Lingkar */
+.foto-mempelai {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--white);
+    box-shadow: 0 8px 25px rgba(244, 143, 177, 0.3);
+    margin-bottom: 20px;
+}
+
+.foto-mempelai img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Judul Nama */
 .playfair {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     color: var(--navy-dark);
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+/* Muncul saat section aktif */
+.animate-item.show h5.playfair {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Teks Orang Tua */
+.bin {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.btn-ig-mini {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px; /* Ukuran Lingkaran Kecil */
+    height: 45px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-radius: 50%; /* Membuat Lingkaran Sempurna */
+    padding: 10px; /* Jarak Ikon ke Pinggir */
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 15px;
+    border: 2px solid var(--white); /* Bingkai Putih agar menonjol */
+}
+
+/* Styling Ikon di Dalam Lingkaran */
+.btn-ig-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Memastikan ikon tidak terpotong */
+    filter: brightness(0) invert(1); /* Mengubah ikon warna asli jadi putih */
+}
+
+/* Efek Hover */
+.btn-ig-mini:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.6);
+}
+
+/* --- ANIMASI PULSE (Berdenyut) UNTUK IG --- */
+@keyframes igPulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 39, 67, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 39, 67, 0); }
+}
+
+.pulse-ig {
+    animation: igPulse 2s infinite;
+}
+
+/* Memastikan content rapi */
+.mempelai-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h3.playfair {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.2rem !important; /* Ukuran diperkecil */
+    font-weight: 700 !important;
+    color: #2c3e50 !important;
+    
+    /* Setup Animasi */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+    
+    display: block;
+    margin: 10px 0;
+}
+
+/* Class 'show' akan ditambahkan lewat JS saat discroll */
+.mempelai-item.show h3.playfair {
+    opacity: 1;
+    transform: translateY(0);
+}
+.mempelai-item .bin {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.8s ease-out 0.2s; /* Delay 0.2s */
+}
+
+.mempelai-item .btn-ig-mini {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.6s ease-out 0.4s; /* Delay 0.4s */
+}
+
+/* Class Show (Triggered by Scroll) */
+.animate-up.show .playfair,
+.animate-up.show .bin,
+.animate-up.show .btn-ig-mini {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Overlay Tambahan */
+.dark-overlay-light {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.6); /* Membuat background foto agak redup agar fokus ke profil */
+    z-index: -1;
+}
+
+/* Penyesuaian Ampersand */
+/* Container untuk mengatur jarak dan posisi ampersand */
+.ampersand-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
 }
 
 .ampersand {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin: 15px 0;
-    color: var(--pink-accent);
-}
-
-.quote { font-style: italic; font-size: 0.95rem; line-height: 1.6; }
-.sura { font-weight: 700; margin-top: 10px; }
-
-/* ANIMASI SCRIPT */
-.animate-up {
+    font-size: 3.5rem; /* Ukuran lebih besar agar ikonik */
+    color: var(--pink-main);
+    font-style: italic;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+    /* Efek bayangan lembut warna pink */
+    text-shadow: 2px 2px 10px rgba(244, 143, 177, 0.3);
+    
+    /* Animasi muncul */
     opacity: 0;
-    transform: translateY(40px);
-    transition: 1s ease-out;
+    transform: scale(0.5) rotate(-20deg);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s;
 }
 
-.animate-up.show {
+/* Garis dekoratif di kiri dan kanan ampersand */
+.ampersand-wrapper::before,
+.ampersand-wrapper::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--pink-main), transparent);
+    max-width: 60px;
+    margin: 0 15px;
+    opacity: 0.3;
+}
+
+/* Trigger Animasi saat scroll */
+.animate-up.show .ampersand {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) rotate(0deg);
+}
+
+/* Efek Berdenyut Halus (Pulse) agar tidak statis */
+@keyframes ampersandPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 0px var(--pink-main)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 5px var(--pink-main)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--pink-main)); }
+}
+
+.main-content.active .ampersand {
+    animation: ampersandPulse 4s ease-in-out infinite;
 }
