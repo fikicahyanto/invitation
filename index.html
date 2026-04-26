@@ -185,6 +185,39 @@
                 </div>
             </section>
 
+            <section class="section-gallery animate-up">
+                <div class="container">
+                    <h3 class="title-section playfair">Galeri Foto</h3>
+                    <p class="quote-text">Momen indah yang kami abadikan dalam perjalanan menuju hari bahagia.</p>
+
+                    <div class="gallery-grid">
+                        <div class="gallery-item animate-item">
+                            <div class="glass-frame">
+                                <img src="assets/img/depan.jpeg" alt="Prewedding 1">
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-item animate-item">
+                            <div class="glass-frame">
+                                <img src="assets/img/mesra.jpeg" alt="Prewedding 2">
+                            </div>
+                        </div>
+
+                        <div class="gallery-item animate-item">
+                            <div class="glass-frame">
+                                <img src="assets/img/mesra-wayang.jpeg" alt="Prewedding 3">
+                            </div>
+                        </div>
+
+                        <div class="gallery-item animate-item">
+                            <div class="glass-frame">
+                                <img src="assets/img/duduk.jpeg" alt="Prewedding 4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="section animate-up penutup">
                 <p>Terima kasih atas doa restu yang Anda berikan.</p>
                 <p class="salam" style="margin-top: 20px;">Wassalamu’alaikum Wr. Wb.</p>
@@ -237,7 +270,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item, .event-card-glass').forEach(el => observer.observe(el));
+        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item, .event-card-glass, .gallery-item').forEach(el => observer.observe(el));
     
         window.addEventListener('scroll', function() {
         const timeline = document.getElementById('storyTimeline');
