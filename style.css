@@ -1001,3 +1001,155 @@ h3.playfair, h5.playfair {
     opacity: 1;
     transform: translateX(0);
 }
+
+.section-event {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: var(--pink-accent); /* Sesuaikan dengan warna tema */
+}
+
+.quote-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+/* Card Style */
+.event-card-glass {
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 30px;
+    padding: 35px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.event-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.event-card-glass h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.event-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--pink-main);
+    margin: 15px auto;
+}
+
+.event-info p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.event-date {
+    font-weight: bold;
+    font-size: 1.1rem !important;
+}
+
+.event-address {
+    font-size: 0.85rem !important;
+    line-height: 1.5;
+    margin-top: 10px !important;
+}
+
+/* Tombol Maps */
+.btn-maps {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pink-main);
+    color: white !important;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(244, 143, 177, 0.4);
+}
+
+.btn-maps:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(244, 143, 177, 0.6);
+}
+
+.icon-map {
+    margin-right: 8px;
+    font-style: normal;
+}
+
+.location {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--pink-main); /* Atau warna tema Anda */
+}
+
+.location-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.location-wrapper::before,
+.location-wrapper::after {
+    content: "";
+    flex: 1;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.1); /* Garis halus */
+    margin: 0 15px;
+}
+
+/* State Awal: Transparan dan sedikit bergeser ke bawah */
+.event-card-glass {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* State Aktif: Muncul sempurna */
+.event-card-glass.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Animasi Ikon (Berdenyut pelan) */
+.event-icon {
+    display: inline-block;
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Staggered Delay (Agar kartu muncul satu per satu) */
+.event-card-glass:nth-child(1) { transition-delay: 0.2s; }
+.event-card-glass:nth-child(2) { transition-delay: 0.4s; }
+
+/* Efek saat tombol Maps disentuh */
+.btn-maps {
+    animation: pulseButton 2s infinite;
+}
+
+@keyframes pulseButton {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}

@@ -54,6 +54,7 @@
             </section>
 
              <section class="section-ayat animate-up">
+                <div class="dark-overlay"></div>
                 <div class="ayat-container">
                     <div class="ayat-image floating-img">
                         <img src="assets/img/bunga.png" alt="bunga">
@@ -68,6 +69,7 @@
             </section>
 
             <section class="section-mempelai animate-up">
+                <div class="dark-overlay"></div>
                 <div class="mempelai-detail">
                     <div class="glass-card-box show">                        
                         <div class="mempelai-item animate-item">
@@ -99,7 +101,52 @@
                 </div>
             </section>
 
+            <section class="section-event animate-up">
+                <div class="dark-overlay"></div>
+                <div class="container">
+                    <h3 class="title-section playfair">Rangkaian Acara</h3>
+                    <p class="quote-text">"Bukan karena bertemu lalu berjodoh, tapi karena berjodohlah kami bisa bertemu."</p>
+                    
+                    <div class="event-card-glass animate-item">
+                        <div class="event-icon">💍</div>
+                        <h4>Akad Nikah</h4>
+                        <div class="event-divider"></div>
+                        <div class="event-info">
+                            <p class="event-date">Senin, 18 Mei 2026</p>
+                            <p class="event-time">09.00 WIB s/d Selesai</p>
+                        </div>
+                        <div class="location-wrapper">
+                            <div class="location">📍</div>
+                        </div>
+                        <div class="event-info">
+                            <p class="event-location-name">Kediaman Mempelai Wanita</p>
+                            <p class="event-address">Desa Pemaron Waru 2 Rt 01 Rw 02 Kec. Brebes</p>
+                        </div>
+                    </div>
+
+                    <div class="event-card-glass animate-item">
+                        <div class="event-icon">🌸</div>
+                        <h4>Resepsi</h4>
+                        <div class="event-divider"></div>
+                        <div class="event-info">
+                            <p class="event-date">Senin, 18 Mei 2026</p>
+                        </div>
+                        <div class="location-wrapper">
+                            <div class="location">📍</div>
+                        </div>
+                        <div class="event-info">
+                            <p class="event-location-name">Kediaman Mempelai Wanita</p>
+                            <p class="event-address">Desa Pemaron Waru 2 Rt 01 Rw 02 Kec. Brebes</p>
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="btn-maps">
+                            <i class="icon-map"></i> Petunjuk Lokasi
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <section class="section-story animate-up">
+                <div class="dark-overlay"></div>
                 <div class="container">
                     <h3 class="title-section playfair">Our Story</h3>
                     
@@ -135,25 +182,6 @@
                         </div>
 
                     </div>
-                </div>
-            </section>
-
-            <section class="section animate-up">
-                <h3 class="title-section">Rangkaian Acara</h3>
-                <p style="font-size: 0.85rem; margin-bottom: 20px;">Bukan karena bertemu lalu berjodoh, tapi karena berjodohlah kami bisa bertemu.</p>
-                
-                <div class="event-card">
-                    <h4>Akad Nikah</h4>
-                    <p><strong>Senin, 18 Mei 2026</strong></p>
-                    <p>09.00 WIB s/d Selesai</p>
-                </div>
-
-                <div class="event-card">
-                    <h4>Resepsi</h4>
-                    <p><strong>Senin, 18 Mei 2026</strong></p>
-                    <p>Kediaman Mempelai Wanita</p>
-                    <p>Desa Pemaron Waru 2 Rt 01 Rw 02 Kec. Brebes</p>
-                    <a href="https://maps.google.com/?q=Desa+Pemaron+Brebes" target="_blank" class="btn-action">Petunjuk Lokasi</a>
                 </div>
             </section>
 
@@ -209,7 +237,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item').forEach(el => observer.observe(el));
+        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item, .event-card-glass').forEach(el => observer.observe(el));
     
         window.addEventListener('scroll', function() {
         const timeline = document.getElementById('storyTimeline');
