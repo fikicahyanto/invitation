@@ -9,6 +9,18 @@
 </head>
 <body class="no-scroll">
 
+    <div id="musicButton" class="music-control" onclick="toggleMusic()">
+        <div class="music-icon-wrapper">
+            <i id="musicIcon" class="music-icon">🎵</i>
+        </div>
+    </div>
+
+    <div id="musicButton" class="music-control" onclick="toggleMusic()">
+        <div class="music-disc" id="musicDisc">
+            <span class="music-icon">🎵</span>
+        </div>
+    </div>
+
     <audio id="weddingMusic" loop>
         <source src="#" type="audio/mpeg">
     </audio>
@@ -36,6 +48,8 @@
                 <div class="full-bg"></div>
                 <div class="dark-overlay"></div>
 
+                <div class="bubbles-container" id="bubbles"></div>
+
                 <div class="oval-card-wrapper">
                     <div class="oval-card floating-anim">
                         <div class="card-photo">
@@ -53,8 +67,7 @@
                 </div>
             </section>
 
-             <section class="section-ayat animate-up">
-                <div class="dark-overlay"></div>
+            <section class="section-ayat animate-up">
                 <div class="ayat-container">
                     <div class="ayat-image floating-img">
                         <img src="assets/img/bunga.png" alt="bunga">
@@ -68,18 +81,37 @@
                 </div>
             </section>
 
-            <section class="section-mempelai animate-up">
-                <div class="dark-overlay"></div>
+            <section class="section-mempelai animate-up" id="mempelai">
+                <div class="wave-container wave-top">
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="staticGradTop" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                                <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path opacity="0.3" fill="url(#staticGradTop)" d="M0,96L80,106.7C160,117,320,139,480,128C640,117,800,75,960,80C1120,85,1280,139,1360,154.7L1440,170L1440,320L0,320Z"></path>
+                        <path opacity="0.6" fill="url(#staticGradTop)" d="M0,192L60,213.3C120,235,240,256,360,234.7C480,213,600,149,720,128C840,107,960,128,1080,149.3C1200,171,1320,192,1380,202.7L1440,213L1440,320L0,320Z"></path>
+                        <path fill="url(#staticGradTop)" d="M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,245.3C672,256,768,256,864,240C960,224,1056,192,1152,186.7C1248,181,1344,203,1392,213.3L1440,224L1440,320L0,320Z"></path>
+                    </svg>
+                </div>
+                
                 <div class="mempelai-detail">
-                    <div class="glass-card-box show">                        
+                    <div class="glass-card-box show">   
+                        <div class="opening-text animate-item">
+                            <p class="salam">Assalamu'alaikum Wr. Wb.</p>
+                            <p class="invitation-msg">
+                                Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i serta kerabat sekalian untuk menghadiri acara pernikahan kami:
+                            </p>
+                        </div>                     
                         <div class="mempelai-item animate-item">
                             <div class="foto-mempelai floating-img">
                                 <img src="assets/img/foto_sinta.jpeg" alt="Sinta Aenul Nafasah">
                             </div>
                             <h3 class="playfair">Sinta Aenul Nafasah, A.md. Farm</h3>
                             <p class="bin">Putri dari Bpk. Watmo & Ibu Roisah (Almh)</p>
-                            <a href="https://instagram.com/username_sinta" target="_blank" class="btn-ig-mini pulse-ig">
-                            <img src="assets/img/instagram.png" alt="Sinta Aenul Nafasah">
+                            <a href="https://instagram.com/sintaainuun_" target="_blank" class="btn-ig-mini pulse-ig">
+                            <img src="assets/img/ig.png" alt="Sinta Aenul Nafasah">
                             </a>
                         </div>
                         
@@ -93,16 +125,29 @@
                             </div>
                             <h3 class="playfair">M. Na'ajich Anjaba</h3>
                             <p class="bin">Putra dari Bpk. Nur Kholik & Ibu Khaeriyatul Hidayah</p>
-                            <a href="https://instagram.com/username_aji" target="_blank" class="btn-ig-mini pulse-ig">
-                                <img src="assets/img/instagram.png" alt="Sinta Aenul Nafasah">
+                            <a href="https://instagram.com/mnaajichhh_" target="_blank" class="btn-ig-mini pulse-ig">
+                                <img src="assets/img/ig.png" alt="Sinta Aenul Nafasah">
                             </a>
                         </div>
                     </div>
                 </div>
+
+                <div class="wave-container wave-bottom">
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="seamlessGradBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <path opacity="0.2" fill="url(#seamlessGradBottom)" d="M0,64L120,90.7C240,117,480,171,720,181.3C960,192,1200,160,1320,144L1440,128L1440,0L0,0Z"></path>
+                        <path opacity="0.5" fill="url(#seamlessGradBottom)" d="M0,192L80,181.3C160,171,320,149,480,160C640,171,800,213,960,218.7C1120,224,1280,192,1360,176L1440,160L1440,0L0,0Z"></path>
+                        <path fill="url(#seamlessGradBottom)" d="M0,256L60,245.3C120,235,240,213,360,213.3C480,213,600,235,720,229.3C840,224,960,192,1080,181.3C1200,171,1320,181,1380,186.7L1440,192L1440,0L0,0Z"></path>
+                    </svg>
+                </div>
             </section>
 
             <section class="section-event animate-up">
-                <div class="dark-overlay"></div>
                 <div class="container">
                     <h3 class="title-section playfair">Rangkaian Acara</h3>
                     <p class="quote-text">"Bukan karena bertemu lalu berjodoh, tapi karena berjodohlah kami bisa bertemu."</p>
@@ -138,18 +183,35 @@
                             <p class="event-location-name">Kediaman Mempelai Wanita</p>
                             <p class="event-address">Desa Pemaron Waru 2 Rt 01 Rw 02 Kec. Brebes</p>
                         </div>
-                        <a href="https://maps.google.com" target="_blank" class="btn-maps">
-                            <i class="icon-map"></i> Petunjuk Lokasi
+                        <a href="https://maps.app.goo.gl/aNjkFxtNDQ2so46r5" target="_blank" class="btn-maps">
+                            <i class="icon-map"></i> <span style="color:black">Petunjuk Lokasi</span>
                         </a>
                     </div>
                 </div>
             </section>
 
             <section class="section-story animate-up">
-                <div class="dark-overlay"></div>
+                <div class="wave-container wave-top">
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="storyGradTop" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                                <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path opacity="0.3" fill="url(#storyGradTop)" d="M0,128L80,117.3C160,107,320,85,480,112C640,139,800,213,960,229.3C1120,245,1280,203,1360,181.3L1440,160L1440,320L0,320Z"></path>
+                        <path opacity="0.6" fill="url(#storyGradTop)" d="M0,192L60,213.3C120,235,240,256,360,234.7C480,213,600,149,720,128C840,107,960,128,1080,149.3C1200,171,1320,192,1380,202.7L1440,213L1440,320L0,320Z"></path>
+                        <path fill="url(#storyGradTop)" d="M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,245.3C672,256,768,256,864,240C960,224,1056,192,1152,186.7C1248,181,1344,203,1392,213.3L1440,224L1440,320L0,320Z"></path>
+                    </svg>
+                </div>
                 <div class="container">
                     <h3 class="title-section playfair">Our Story</h3>
-                    
+                    <div class="story-couple-frame animate-item">
+                        <div class="story-img-border"></div>
+                        <div class="story-photo-wrapper">
+                            <img src="assets/img/mesra.jpeg" alt="Sinta & Aji">
+                        </div>
+                    </div>
                     <div class="story-timeline">
                         <div class="timeline-line"></div>
                         <div class="timeline-line-progress" id="progressLine"></div>
@@ -157,31 +219,41 @@
                         <div class="story-item animate-item">
                             <div class="story-dot"></div>
                             <div class="glass-card-story">
-                                <span class="story-date">2013</span>
-                                <h5>Awal Bertemu</h5>
-                                <p>Mengenal sejak duduk di bangku SMP pada tahun 2013, namun saat itu kami tidak terlalu akrab.</p>
+                                <span class="story-date">Awal Bertemu</span>
+                                <p>Awal mengenal dimulai sejak duduk di bangku SMP tepatnya pada thn 2013. Namun pada saat itu kami tidak terlalu akrab. Kemudian pada thn 2023 kami bertemu kembali dan mulai mengenal satu sama lain.</p>
                             </div>
                         </div>
 
                         <div class="story-item animate-item">
                             <div class="story-dot"></div>
                             <div class="glass-card-story">
-                                <span class="story-date">2023</span>
-                                <h5>Bertemu Kembali</h5>
-                                <p>Tahun 2023 membawa kami pada pertemuan kembali hingga mulai mengenal satu sama lain lebih dalam.</p>
+                                <span class="story-date">Lamaran</span>
+                                <p>Kehendak-Nya menuntun kami pada sebuah pertemuan yang tak pernah disangka hingga akhirnya pada 24 Juni 2025 membawa kami pada sebuah ikatan yang diRidhoi-Nya.</p>
                             </div>
                         </div>
 
                         <div class="story-item animate-item">
                             <div class="story-dot"></div>
                             <div class="glass-card-story">
-                                <span class="story-date">24 Juni 2025</span>
-                                <h5>Lamaran</h5>
-                                <p>Kehendak-Nya menuntun kami pada sebuah pertemuan yang tak disangka hingga membawa kami pada ikatan yang diridhoi-Nya.</p>
+                                <span class="story-date">Pernikahan</span>
+                                <p>Bukan karna bertemu lalu berjodoh, tapi karna berjodohlah kami bisa bertemu, Kami memutuskan untuk mengikrarkan janji suci pernikahan pada Senin, 18 Mei 2026. sebagaimana yang pernah dikatakan oleh Ali bin Abi Thalib : "Apa yang menjadi takdirmu akan menemukan jalannya untuk menemukanmu"</p>
                             </div>
                         </div>
 
                     </div>
+                </div>
+                <div class="wave-container wave-bottom">
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="storyGradBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <path opacity="0.2" fill="url(#storyGradBottom)" d="M0,64L120,90.7C240,117,480,171,720,181.3C960,192,1200,160,1320,144L1440,128L1440,0L0,0Z"></path>
+                        <path opacity="0.5" fill="url(#storyGradBottom)" d="M0,192L80,181.3C160,171,320,149,480,160C640,171,800,213,960,218.7C1120,224,1280,192,1360,176L1440,0L0,0Z"></path>
+                        <path fill="url(#storyGradBottom)" d="M0,256L60,245.3C120,235,240,213,360,213.3C480,213,600,235,720,229.3C840,224,960,192,1080,181.3C1200,171,1320,181,1380,186.7L1440,192L1440,0L0,0Z"></path>
+                    </svg>
                 </div>
             </section>
 
@@ -218,10 +290,108 @@
                 </div>
             </section>
 
-            <section class="section animate-up penutup">
-                <p>Terima kasih atas doa restu yang Anda berikan.</p>
-                <p class="salam" style="margin-top: 20px;">Wassalamu’alaikum Wr. Wb.</p>
-                <h3 class="playfair" style="font-size: 1.5rem; margin-top: 15px;">Sinta & Aji</h3>
+            <section class="section-gift animate-up">
+                <div class="wave-container wave-top">
+                    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="storyGradTop" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                                <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path opacity="0.3" fill="url(#storyGradTop)" d="M0,128L80,117.3C160,107,320,85,480,112C640,139,800,213,960,229.3C1120,245,1280,203,1360,181.3L1440,160L1440,320L0,320Z"></path>
+                        <path opacity="0.6" fill="url(#storyGradTop)" d="M0,192L60,213.3C120,235,240,256,360,234.7C480,213,600,149,720,128C840,107,960,128,1080,149.3C1200,171,1320,192,1380,202.7L1440,213L1440,320L0,320Z"></path>
+                        <path fill="url(#storyGradTop)" d="M0,256L48,245.3C96,235,192,213,288,213.3C384,213,480,235,576,245.3C672,256,768,256,864,240C960,224,1056,192,1152,186.7C1248,181,1344,203,1392,213.3L1440,224L1440,320L0,320Z"></path>
+                    </svg>
+                </div>
+                <div class="container">
+                    <h3 class="title-section playfair">Wedding Gift</h3>
+                    <p class="quote-text">Doa restu Anda merupakan karunia terindah bagi kami. Namun jika memberi adalah tanda kasih, kami dengan rendah hati menerimanya.</p>
+
+                    <button id="btnShowGift" class="btn-main-gift" onclick="toggleGift()">
+                        <span class="gift-icon-anim">🎁</span>
+                        <span class="btn-text">Kirim Hadiah</span>
+                    </button>
+
+                    <div id="giftContainer" class="gift-container" style="display: none;">
+                        <div class="bank-card-wrapper">
+                            <div class="bank-card-glass">
+                                <div class="card-header">
+                                    <div class="chip"></div>
+                                    <img src="assets/img/bca-logo.png" alt="BRI" class="bank-logo-img">
+                                </div>
+                                
+                                <div class="card-body">
+                                    <p class="label-card">Nomor Rekening</p>
+                                    <h4 id="norek1" class="account-number">5861 0103 2239 533</h4>
+                                </div>
+                                
+                                <div class="card-footer">
+                                    <div class="owner-info">
+                                        <p class="label-card">Pemilik Rekening</p>
+                                        <p class="owner-name">Sinta Aenul Nafasah</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bank-card-wrapper">
+                            <div class="bank-card-glass">
+                                <div class="card-header">
+                                    <div class="chip"></div>
+                                    <img src="assets/img/bca-logo.png" alt="BRI" class="bank-logo-img">
+                                </div>
+                                
+                                <div class="card-body">
+                                    <p class="label-card">Nomor Rekening</p>
+                                    <h4 id="norek1" class="account-number">0101 0110 6697 509</h4>
+                                </div>
+                                
+                                <div class="card-footer">
+                                    <div class="owner-info">
+                                        <p class="label-card">Pemilik Rekening</p>
+                                        <p class="owner-name">M. Na'ajich Anjaba</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gift-card-glass animate-item">
+                            <div class="gift-icon">🎁</div>
+                            <h4>Kirim Kado</h4>
+                            <div class="bank-info">
+                                <p class="account-name">Kediaman Mempelai Wanita</p>
+                                <p class="address-text" id="alamatKado">
+                                    Desa Pemaron Waru 2 Rt 01 Rw 02 Kec. Brebes, Jawa Tengah
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+           <section class="section-thanks animate-up">
+                <div class="container">
+                    <div class="thanks-couple-frame animate-item">
+                        <div class="circle-border"></div>
+                        <div class="photo-wrapper">
+                            <img src="assets/img/duduk.jpeg" alt="Sinta & Aji">
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card-thanks animate-item">
+                        <h2 class="playfair">Terima Kasih</h2>
+                        <p>Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu bagi kami.</p>
+                        <br><br>
+                        
+                        <p class="regards">Kami yang berbahagia,</p>
+                        <p class="family-name">Sinta & Aji</p>
+                    </div>
+
+                    <footer class="mini-footer">
+                        <p>Created with ❤️ by Arkatera Digital</p>
+                    </div>
+                </div>
             </section>
 
         </main>
@@ -261,6 +431,30 @@
             }, 1000); 
         }
 
+        const music = document.getElementById('weddingMusic');
+        const musicBtn = document.getElementById('musicButton');
+        const musicIcon = document.getElementById('musicIcon');
+
+        function toggleMusic() {
+            if (music.paused) {
+                playMusic();
+            } else {
+                pauseMusic();
+            }
+        }
+
+        function playMusic() {
+            music.play();
+            document.getElementById('musicDisc').classList.add('rotating');
+            musicIcon.innerHTML = "🎵";
+        }
+
+        function pauseMusic() {
+            music.pause();
+            document.getElementById('musicDisc').classList.remove('rotating');
+            musicIcon.innerHTML = "🔇";
+        }
+
         // Animasi Scroll (Intersectional Observer)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -270,7 +464,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item, .event-card-glass, .gallery-item').forEach(el => observer.observe(el));
+        document.querySelectorAll('.mempelai-item, .animate-up, .glass-card-box, .animate-item, .story-item, .event-card-glass, .gallery-item, .gift-card-glass').forEach(el => observer.observe(el));
     
         window.addEventListener('scroll', function() {
         const timeline = document.getElementById('storyTimeline');
@@ -301,6 +495,69 @@
             }
         });
     });
+
+    function toggleGift() {
+        const btn = document.getElementById('btnShowGift');
+        const container = document.getElementById('giftContainer');
+
+        // Cek jika sedang tersembunyi
+        if (container.style.display === 'none') {
+            container.style.display = 'flex';
+            
+            // Timeout sedikit agar transisi CSS berjalan setelah display berganti
+            setTimeout(() => {
+                container.classList.add('active');
+                btn.innerHTML = "Tutup Hadiah"; // Opsional: Ganti teks tombol
+            }, 10);
+            
+            // Scroll otomatis ke container kado agar tamu tidak bingung
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+
+        } else {
+            container.classList.remove('active');
+            setTimeout(() => {
+                container.style.display = 'none';
+                btn.innerHTML = '<span class="icon">🎁</span> Kirim Hadiah';
+            }, 600); // Samakan dengan durasi transisi di CSS
+        }
+    }
+
+    function createBubbles() {
+        const container = document.getElementById('bubbles');
+        const bubbleCount = 15; // Jumlah bubble yang muncul sekaligus
+
+        for (let i = 0; i < bubbleCount; i++) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            // Ukuran acak antara 10px - 40px
+            const size = Math.random() * 30 + 10 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            
+            // Posisi horizontal acak (0% - 100%)
+            bubble.style.left = Math.random() * 100 + '%';
+            
+            // Durasi jatuh acak antara 5s - 10s
+            bubble.style.animationDuration = Math.random() * 5 + 5 + 's';
+            
+            // Delay acak agar tidak jatuh bersamaan
+            bubble.style.animationDelay = Math.random() * 5 + 's';
+            
+            // Efek blur acak untuk kedalaman (depth of field)
+            const blur = Math.random() * 3 + 'px';
+            bubble.style.filter = `blur(${blur})`;
+
+            container.appendChild(bubble);
+        }
+    }
+
+    // Panggil fungsi saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', createBubbles);
+
+    // Fungsi copyText tetap sama seperti sebelumnya
     </script>
 </body>
 </html>
