@@ -1139,8 +1139,8 @@ h3.playfair, h5.playfair {
 /* Bingkai Foto Lingkaran */
 .story-couple-frame {
     position: relative;
-    width: 400px;
-    height: 320px;
+    width: 220px;
+    height: 220px;
     margin: 0 auto 40px auto;
 }
 
@@ -1151,13 +1151,11 @@ h3.playfair, h5.playfair {
     right: -10px;
     bottom: -10px;
     border: 2px solid rgba(255, 255, 255, 0.6);
-    border-radius: 12px; /* ubah dari 50% ke kotak */
 }
 
 .story-photo-wrapper {
     width: 100%;
     height: 100%;
-    border-radius: 12px; /* ubah dari 50% */
     border: 6px solid white;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -1169,6 +1167,11 @@ h3.playfair, h5.playfair {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+@keyframes rotateCircle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .section-event {
