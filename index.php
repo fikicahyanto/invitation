@@ -1,3 +1,7 @@
+<?php 
+include 'koneksi.php';
+include 'helpers.php';
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -59,6 +63,24 @@
                             <p class="pre-wedding fade-in-up">THE WEDDING OF</p>
                             <h2 class="playfair fade-in-up delay-1">Sinta & Aji</h2>
                             <p class="date fade-in-up delay-2">SENIN, 18 MEI 2026</p>
+                            <div class="wedding-countdown animate-item">
+                                <div class="countdown-item">
+                                    <span id="days">00</span>
+                                    <p>Hari</p>
+                                </div>
+                                <div class="countdown-item">
+                                    <span id="hours">00</span>
+                                    <p>Jam</p>
+                                </div>
+                                <div class="countdown-item">
+                                    <span id="minutes">00</span>
+                                    <p>Menit</p>
+                                </div>
+                                <div class="countdown-item">
+                                    <span id="seconds">00</span>
+                                    <p>Detik</p>
+                                </div>
+                            </div>
                             <button class="btn-save">
                                 Save the Date
                             </button>
@@ -205,7 +227,7 @@
                     </svg>
                 </div>
                 <div class="container">
-                    <h3 class="title-section playfair">Our Story</h3>
+                    <h3 class="title-section playfair">Our Story</h3><br>
                     <div class="story-couple-frame">
                         <div class="story-img-border"></div>
                         <div class="story-photo-wrapper">
@@ -368,6 +390,72 @@
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <section class="section-guestbook" id="guestbook">
+                <div class="container">
+                    <h3 class="title-section playfair">Guest Book</h3>
+                    <p class="subtitle">Berikan doa restu & ucapan terbaik Anda</p>
+
+                    <!-- Form Ucapan -->
+                    <div class="guestbook-form glass-card">
+                        <form id="wishForm">
+                            <div class="form-group">
+                                <input type="text" id="guestName" placeholder="Nama Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <select id="attendance" required>
+                                    <option value="">Konfirmasi Kehadiran</option>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Masih Ragu">Masih Ragu</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="guestMessage" rows="4" placeholder="Tulis ucapan & doa..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-send">Kirim Ucapan</button>
+                        </form>
+                    </div>
+
+                    <!-- Daftar Ucapan (Scrollable) -->
+                    <div class="guestbook-list" id="wishContainer">
+                        <?php
+                        $result = $conn->query("SELECT * FROM guestbook ORDER BY created_at DESC");
+                        while($row = $result->fetch_assoc()):
+                        ?>
+                        <div class="wish-item">
+                            <div class="wish-header">
+                                <strong><?= htmlspecialchars($row['nama']) ?></strong>
+                                <span class="status-badge hadir"><?= htmlspecialchars($row['kehadiran']) ?></span>
+                            </div>
+                            <p><?= htmlspecialchars($row['pesan']) ?></p>
+                            <small><?= waktu_lalu($row['created_at']) ?></small>
+                        </div>
+                        <?php endwhile; ?>
+                    </div>
+                    <div class="wave-container wave-bottom">
+                        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="storyGradBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:var(--soft-pink); stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--soft-pink); stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Gelombang 1: Paling Belakang (Lekukan Lebar & Dalam) -->
+                            <path opacity="0.2" fill="url(#storyGradBottom)" 
+                                d="M0,160 C320,300 420,10 720,160 C1020,310 1120,20 1440,160 L1440,0 L0,0 Z"></path>
+                            
+                            <!-- Gelombang 2: Tengah (Lekukan Sedang) -->
+                            <path opacity="0.5" fill="url(#storyGradBottom)" 
+                                d="M0,192 C240,100 480,280 720,192 C960,100 1200,280 1440,192 L1440,0 L0,0 Z"></path>
+                            
+                            <!-- Gelombang 3: Paling Depan (Lekukan Rapat & Tajam) -->
+                            <path fill="url(#storyGradBottom)" 
+                                d="M0,224 C180,280 360,160 540,224 C720,280 900,160 1080,224 C1260,280 1440,160 1440,224 L1440,0 L0,0 Z"></path>
+                        </svg>
+                    </div>
             </section>
 
            <section class="section-thanks animate-up">
@@ -558,6 +646,56 @@
     window.addEventListener('DOMContentLoaded', createBubbles);
 
     // Fungsi copyText tetap sama seperti sebelumnya
+
+    document.getElementById('wishForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('nama', document.getElementById('guestName').value);
+        formData.append('kehadiran', document.getElementById('attendance').value);
+        formData.append('pesan', document.getElementById('guestMessage').value);
+
+        fetch('koneksi.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success') {
+                alert('Terima kasih atas ucapannya!');
+                location.reload(); // Refresh untuk melihat ucapan terbaru
+            } else {
+                alert('Gagal mengirim pesan.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Atur tanggal target sesuai data pernikahan Sinta & Aji
+    const weddingDate = new Date("May 18, 2026 08:00:00").getTime();
+
+    const countdown = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        // Perhitungan waktu
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Tampilkan hasil ke elemen HTML
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+        // Jika hitung mundur selesai
+        if (distance < 0) {
+            clearInterval(countdown);
+            document.querySelector(".wedding-countdown").innerHTML = "<h3>Hari Bahagia Telah Tiba!</h3>";
+        }
+    }, 1000);
     </script>
 </body>
 </html>
