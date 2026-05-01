@@ -1,6 +1,7 @@
 <?php 
 include 'koneksi.php';
 include 'helpers.php';
+include 'guestname.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -40,7 +41,7 @@ include 'helpers.php';
                 <h1 class="couple-names">Sinta & Aji</h1>
                 <div class="guest-box">
                     <p>Dear,</p>
-                    <h2 class="guest-name" id="guestName">Nama Tamu</h2>
+                    <h2 class="guest-name"><?=$guest_name?></h2>
                 </div>
                 <button class="btn-buka" onclick="bukaUndangan()">Buka Undangan</button>
             </div>
@@ -401,7 +402,7 @@ include 'helpers.php';
                     <div class="guestbook-form glass-card">
                         <form id="wishForm">
                             <div class="form-group">
-                                <input type="text" id="guestName" placeholder="Nama Anda" required>
+                                <input type="text" id="guestName" value="<?=$guest_name?>" placeholder="Nama Anda" required>
                             </div>
                             <div class="form-group">
                                 <select id="attendance" required>
@@ -430,7 +431,7 @@ include 'helpers.php';
                                 <span class="status-badge hadir"><?= htmlspecialchars($row['kehadiran']) ?></span>
                             </div>
                             <p><?= htmlspecialchars($row['pesan']) ?></p>
-                            <small><?= waktu_lalu($row['created_at']) ?></small>
+                            <small style="font-style:italic"><?= waktu_lalu($row['created_at']) ?></small>
                         </div>
                         <?php endwhile; ?>
                     </div>
@@ -478,6 +479,16 @@ include 'helpers.php';
 
                     <footer class="mini-footer">
                         <p>Created with ❤️ by Arkatera Digital</p>
+                        <div class="social-links">
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/6285869755128" target="_blank" class="social-icon">
+                                <img src="assets/img/wa.png" alt="WhatsApp">
+                            </a>
+                            <!-- Instagram -->
+                            <a href="https://instagram.com/arkateradigital" target="_blank" class="social-icon">
+                                <img src="assets/img/ig.png" alt="Instagram">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -487,11 +498,11 @@ include 'helpers.php';
 
     <script>
         // Mengambil nama tamu dari URL (?to=Nama)
-        const urlParams = new URLSearchParams(window.location.search);
-        const to = urlParams.get('to');
-        if (to) {
-            document.getElementById('guestName').innerText = to;
-        }
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const to = urlParams.get('to');
+        // if (to) {
+        //     document.getElementById('guestName').innerText = to;
+        // }
 
         function bukaUndangan() {
             // 1. Tambahkan class untuk memicu animasi naik pada cover

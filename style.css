@@ -1769,6 +1769,24 @@ h3.playfair, h5.playfair {
     opacity: 0.5;
 }
 
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon img {
+    width: 24px; /* Ukuran ikon yang pas untuk footer */
+    height: 24px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(1) invert(0); /* Membuat ikon menjadi putih agar kontras */
+}
+
+.social-icon:hover img {
+    transform: translateY(-3px);
+    filter: brightness(1) invert(0); /* Mengembalikan warna asli saat di-hover */
+}
+
 .glass-card-thanks {
     opacity: 0;
     transform: translateY(100px);
@@ -1899,8 +1917,8 @@ h3.playfair, h5.playfair {
 .btn-send {
     width: 100%;
     padding: 12px;
-    background: var(--pink-main);
-    color: white;
+    background: var(--pink-accent);
+    color: var(--white);
     border: none;
     border-radius: 8px;
     font-weight: bold;
